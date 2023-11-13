@@ -115,9 +115,11 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
-        if len(self.bullets) < self.settings.bullet_allowed:
-            new_bullet = Bullet(self)
-            self.bullets.add(new_bullet)   
+        # If game is active, then the ship will fire bullet.
+        if self.stats.game_active:
+            if len(self.bullets) < self.settings.bullet_allowed:
+                new_bullet = Bullet(self)
+                self.bullets.add(new_bullet)   
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
