@@ -45,7 +45,7 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-            
+        
             self._update_screen()
             
     def _check_events(self):
@@ -161,6 +161,7 @@ class AlienInvasion:
         # Increase level.
         self.stats.level += 1
         self.sb.prep_level()
+        se.level_up_sound.play()
 
     def _update_aliens(self):
         """
@@ -183,6 +184,7 @@ class AlienInvasion:
             # Decrement ships left, and update scoreboard.
             self.stats.ships_left -= 1
             self.sb.prep_ships()
+            se.collision_sound.play()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
