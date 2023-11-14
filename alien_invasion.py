@@ -10,6 +10,7 @@ from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+import sound_effects as se
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -119,7 +120,8 @@ class AlienInvasion:
         if self.stats.game_active:
             if len(self.bullets) < self.settings.bullet_allowed:
                 new_bullet = Bullet(self)
-                self.bullets.add(new_bullet)   
+                self.bullets.add(new_bullet) 
+                se.bullet_sound.play()  
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -145,6 +147,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
+            se.alien_sound.play()
             
         if not self.aliens:
             self._start_new_level()
