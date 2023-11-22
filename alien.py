@@ -1,5 +1,6 @@
-import pygame
-from pygame.sprite import Sprite
+import pygame, random
+from pygame.sprite import Sprite, Group
+from bullet import Bullet
 
 class Alien(Sprite):
     """A class to represent a single alien in the fleet."""
@@ -20,6 +21,9 @@ class Alien(Sprite):
 
         # Store the alien's exact horizontal position.
         self.x = float(self.rect.x)
+
+        # Add a bullets group for alien bullets
+        self.bullets = Group()
 
     def check_edges(self):
         """Return True if alien is at edge of screen."""
