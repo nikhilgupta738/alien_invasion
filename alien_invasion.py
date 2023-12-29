@@ -89,6 +89,7 @@ class AlienInvasion:
             self._start_game()
 
     def _start_game(self):
+        '''Start the game.'''
         # Reset the game statistics.
         self.stats.reset_stats()
         self.stats.game_active = True
