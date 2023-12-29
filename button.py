@@ -1,6 +1,6 @@
 import pygame.font
 
-class Button:
+class Play_Button:
 
     def __init__(self, ai_game, msg):
         """Initialize button attributes."""
@@ -30,3 +30,10 @@ class Button:
         # Draw blank button and then draw message.
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
+
+class Quit_Button:
+    
+    def __init__(self, ai_game, msg):
+        """Initialize button attributes."""
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
