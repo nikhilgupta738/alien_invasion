@@ -4,8 +4,8 @@ class Settings:
        def __init__(self):
            """Initialize the game's static settings."""
            # Screen settings
-           self.screen_width = 1920
-           self.screen_height = 1080
+           self.screen_width = 1366
+           self.screen_height = 800
            self.bg_color = (0, 0, 0)
 
            # Ship settings
@@ -16,6 +16,7 @@ class Settings:
            self.bullet_height = 15
            self.bullet_color = (255,255,255)
            self.bullet_allowed = 10
+           self.bullet_damage = 25
 
            # Alien Settings
            self.fleet_drop_speed = 50

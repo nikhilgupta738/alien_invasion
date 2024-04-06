@@ -145,15 +145,18 @@ class AlienInvasion:
         # Remove any bullets and aliens that have collided.
         # Check for any bullets that have hit aliens.
         # If so, get rid of the bullet and the alien.
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, False, False)
 
-        if collisions:
-            for aliens in collisions.values():
-                self.stats.score += self.settings.alien_points * len(aliens)
+        for bullets, aliens in collisions.items():
+            for alien in aliens:
+                alien.health -= self.settings.bullet_damage
+                if alien.health <= 0:
+                    self.aliens.remove(alien)
+                    self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
             se.alien_sound.play()
-            
+
         if not self.aliens:
             self._start_new_level()
 
@@ -174,7 +177,10 @@ class AlienInvasion:
             then update the positions of all aliens in the fleet.
         """
         self._check_fleet_edges()
-        self.aliens.update()
+
+        for alien in self.aliens.sprites():
+            alien.update()
+            alien.draw_health_bar()
 
         # Look for alien-ship collisions.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
@@ -228,6 +234,7 @@ class AlienInvasion:
     def _create_alien(self, alien_number, row_number):
         """ Create an alien and place it in the row."""
         alien = Alien(self)
+        alien.health = 100
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
@@ -264,6 +271,7 @@ class AlienInvasion:
 
         for  bullet in self.bullets.sprites():
             bullet.draw_bullet()
+
         self.aliens.draw(self.screen)
 
         # Draw the score information.

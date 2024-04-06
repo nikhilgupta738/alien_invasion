@@ -10,9 +10,10 @@ class Alien(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
+        self.health = 100  
 
         # Load the alien image and set its rect attribute.
-        self.image = pygame.image.load('images/alienimg_small.bmp')
+        self.image = pygame.image.load('images/spacecraft.png')
         self.rect = self.image.get_rect()
 
         # Start each new alien near the top left of the screen.
@@ -35,3 +36,16 @@ class Alien(Sprite):
         """Move the alien to the right."""
         self.x += (self.settings.alien_speed * self.settings.fleet_direction)
         self.rect.x = self.x
+
+    def draw_health_bar(self):
+        bar_width = 100
+        bar_height = 50
+
+        # Draw the background (full) health bar in green
+        pygame.draw.rect(self.screen, (0, 255, 0), [self.rect.x, self.rect.y - 10, bar_width, bar_height])
+        
+        # Calculate the width of the health portion based on the current health percentage
+        health_width = (self.health / 100) * bar_width
+
+        # Draw the actual health portion in red
+        pygame.draw.rect(self.screen, (255, 0, 0), [self.rect.x, self.rect.y - 10, health_width, bar_height])
